@@ -1,0 +1,203 @@
+<!-- ============================================================
+     ABOUT — Quiénes somos
+     Estructura: Hero → Historia → Valores → Stats → Equipo
+============================================================ -->
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="about-hero" style="background-image: url('assets/images/specialties/2_1 - Photo.jpg')">
+  <div class="about-hero__overlay"></div>
+  <div class="about-hero__content">
+    <span class="about-hero__label">Nosotros</span>
+    <h1 class="about-hero__title">
+      <strong>Quiénes</strong> somos
+    </h1>
+    <p class="about-hero__subtitle">
+      GIAAT es una firma de consultoría técnica multidisciplinaria con sede en
+      Loja, Ecuador. Desde 2019 brindamos soluciones de ingeniería, geotecnia,
+      arquitectura, estudios ambientales y topografía para el sector minero y
+      de construcción.
+    </p>
+    <div class="about-hero__meta">
+      <span class="about-hero__meta-item">
+        <strong>Fundada</strong> 2019
+      </span>
+      <span class="about-hero__meta-divider"></span>
+      <span class="about-hero__meta-item">
+        <strong>Sede</strong> Loja, Ecuador
+      </span>
+      <span class="about-hero__meta-divider"></span>
+      <span class="about-hero__meta-item">
+        <strong>Sector</strong> Minería & Construcción
+      </span>
+    </div>
+  </div>
+
+  <!-- Decoración: letras GIAAT de fondo -->
+  <div class="about-hero__watermark" aria-hidden="true">GIAAT</div>
+</section>
+
+<!-- ── HISTORIA ─────────────────────────────────────────── -->
+<section class="about-story">
+  <div class="about-story__container">
+
+    <div class="about-story__text reveal-left">
+      <span class="about-story__label">Nuestra historia</span>
+      <h2 class="about-story__heading">
+        Ingeniería con <strong>propósito</strong>
+      </h2>
+      <p>
+        GIAAT nació en 2019 como respuesta a la creciente demanda de
+        consultoría técnica integral en el sur del Ecuador. Iniciamos con
+        proyectos geotécnicos para la industria minera de El Oro y Zamora
+        Chinchipe, y expandimos nuestra oferta a ingeniería estructural,
+        diseño arquitectónico, estudios ambientales y levantamientos
+        topográficos.
+      </p>
+      <p>
+        Hoy trabajamos con empresas mineras, promotoras inmobiliarias,
+        comunidades e instituciones públicas, ofreciendo proyectos
+        multidisciplinarios coordinados por un solo equipo técnico de alto
+        nivel.
+      </p>
+      <a routerLink="/" class="about-story__link">
+        Ver nuestros proyectos
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="about-story__cards reveal-right">
+      <div class="about-story__card">
+        <span class="about-story__card-year">2019</span>
+        <span class="about-story__card-event">Fundación de GIAAT en Loja</span>
+      </div>
+      <div class="about-story__card">
+        <span class="about-story__card-year">2020</span>
+        <span class="about-story__card-event">Primeros proyectos mineros en El Oro</span>
+      </div>
+      <div class="about-story__card">
+        <span class="about-story__card-year">2022</span>
+        <span class="about-story__card-event">Expansión a Arquitectura y Ambiental</span>
+      </div>
+      <div class="about-story__card">
+        <span class="about-story__card-year">2025</span>
+        <span class="about-story__card-event">+30 proyectos ejecutados en 3 provincias</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── VALORES ───────────────────────────────────────────── -->
+<section class="about-values">
+  <div class="about-values__container">
+    <div class="about-values__header reveal-up">
+      <span class="about-values__label">Nuestros valores</span>
+      <h2 class="about-values__heading">
+        Los principios que <strong>nos guían</strong>
+      </h2>
+    </div>
+
+    <div class="about-values__grid">
+      @for (value of values; track value.number; let i = $index) {
+      <div class="about-values__card reveal-up" [style.animation-delay]="(i * 0.1) + 's'">
+        <span class="about-values__card-number">{{ value.number }}</span>
+        <h3 class="about-values__card-title">{{ value.title }}</h3>
+        <p class="about-values__card-text">{{ value.description }}</p>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ── EQUIPO — CARRUSEL EDITORIAL ───────────────────────── -->
+<section class="team-carousel" aria-label="El equipo GIAAT">
+
+  <!-- Panel lateral: info del miembro activo -->
+  <div class="team-carousel__info">
+    <span class="team-carousel__label">El equipo</span>
+    <h2 class="team-carousel__heading">
+      Las personas<br>detrás de <strong>GIAAT</strong>
+    </h2>
+
+    <div class="team-carousel__member-meta">
+      <div class="team-carousel__member-accent" [style.background]="activeMember().accentColor"></div>
+      <span class="team-carousel__member-name">{{ activeMember().name }}</span>
+      <span class="team-carousel__member-role" [style.color]="activeMember().accentColor">{{ activeMember().role
+        }}</span>
+      <span class="team-carousel__member-tag">{{ activeMember().tag }}</span>
+    </div>
+
+    <!-- Controles -->
+    <div class="team-carousel__controls">
+      <button class="team-carousel__arrow team-carousel__arrow--prev" (click)="prev()" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <!-- Dots -->
+      <div class="team-carousel__dots">
+        @for (m of team; track m.name; let i = $index) {
+        <button class="team-carousel__dot" [class.team-carousel__dot--active]="isActive(i)"
+          [style.background]="isActive(i) ? activeMember().accentColor : null" (click)="goTo(i)"
+          [attr.aria-label]="'Ver ' + m.name"></button>
+        }
+      </div>
+
+      <button class="team-carousel__arrow team-carousel__arrow--next" (click)="next()" aria-label="Siguiente">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Contador -->
+    <span class="team-carousel__counter">
+      {{ (activeIndex() + 1).toString().padStart(2, '0') }}
+      <span>/</span>
+      {{ team.length.toString().padStart(2, '0') }}
+    </span>
+  </div>
+
+  <!-- Stage: fotos editoriales -->
+  <div class="team-carousel__stage" (mouseenter)="pauseAuto()" (mouseleave)="resumeAuto()"
+    (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+    @for (member of team; track member.name; let i = $index) {
+    <div class="team-carousel__slide" [class.team-carousel__slide--active]="isActive(i)"
+      [class.team-carousel__slide--prev]="isPrev(i)" [class.team-carousel__slide--next]="isNext(i)"
+      [style.--slide-accent]="member.accentColor" (click)="goTo(i)" [attr.aria-hidden]="!isActive(i)">
+      <img [src]="member.image" [alt]="member.name + ' — ' + member.role" loading="lazy" />
+
+      <!-- Borde de acento en slide activo -->
+      <div class="team-carousel__slide-frame"></div>
+
+      <!-- Badge de nombre sobre la foto (visible en prev/next) -->
+      <div class="team-carousel__slide-badge">
+        <span>{{ member.name }}</span>
+      </div>
+    </div>
+    }
+  </div>
+
+</section>
+
+<!-- ── CTA FINAL ─────────────────────────────────────────── -->
+<section class="about-cta">
+  <div class="about-cta__container reveal-up">
+    <h2 class="about-cta__heading">
+      ¿Tienes un <strong>proyecto</strong> en mente?
+    </h2>
+    <p class="about-cta__text">
+      Conversemos. Nuestro equipo está listo para analizar tu caso y
+      ofrecerte la solución técnica más adecuada.
+    </p>
+    <div class="about-cta__actions">
+      <a href="#contacto" class="about-cta__btn-primary">Solicitar cotización</a>
+      <a routerLink="/" class="about-cta__btn-ghost">Ver especialidades</a>
+    </div>
+  </div>
+</section>

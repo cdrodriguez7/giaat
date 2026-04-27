@@ -1,0 +1,97 @@
+<!-- ============================================================
+     HERO GRID — Página inicial con las 5 cards G-I-A-A-T
+     Cada card es una especialidad. Al hacer click se expande
+     animándose para cubrir el viewport antes de navegar.
+============================================================ -->
+
+<section class="hero-grid">
+
+  <!-- Fondo absoluto de la sección -->
+  <div class="hero-grid__bg-pattern"></div>
+
+  <!-- Grid de 5 cards -->
+  <div class="hero-grid__cards">
+
+    @for (specialty of specialties; track specialty.slug; let i = $index) {
+      <div
+        class="hero-grid__card"
+        [class.is-hovered]="isHovered(specialty.slug)"
+        [class.is-dimmed]="isDimmed(specialty.slug)"
+        [class.is-expanding]="isExpanding(specialty.slug)"
+        [style.--accent]="specialty.accentColor"
+        [style.animation-delay]="cardDelay(i)"
+        (mouseenter)="onHover(specialty.slug)"
+        (mouseleave)="onLeave()"
+        (click)="onCardClick(specialty)"
+        role="button"
+        [attr.aria-label]="'Ver ' + specialty.name"
+        tabindex="0"
+        (keydown.enter)="onCardClick(specialty)"
+      >
+        <!-- Imagen de fondo con overlay -->
+        <div
+          class="hero-grid__card-bg"
+          [style.background-image]="'url(' + specialty.bgImage + ')'"
+        ></div>
+        <div class="hero-grid__card-overlay"></div>
+
+        <!-- Número de especialidad (arriba) -->
+        <span class="hero-grid__card-number">0{{ i + 1 }}</span>
+
+        <!-- Nombre corto (tooltip arriba del label) -->
+        <span class="hero-grid__card-name">{{ specialty.shortName }}</span>
+
+        <!-- Letra principal G / I / A / A / T -->
+        <div class="hero-grid__card-letter">
+          {{ specialty.letter }}
+        </div>
+
+        <!-- Descripción corta que aparece en hover -->
+        <div class="hero-grid__card-hover-content">
+          <span class="hero-grid__card-hover-title">{{ specialty.name }}</span>
+          <span class="hero-grid__card-hover-cta">
+            Explorar área
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+
+        <!-- Línea de acento inferior -->
+        <div class="hero-grid__card-accent-line"></div>
+
+        <!-- Flecha de navegación (visible solo en móvil) -->
+        <div class="hero-grid__card-arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+      </div>
+    }
+
+  </div>
+
+  <!-- Tagline debajo del grid -->
+  <div class="hero-grid__footer reveal-up">
+    <p class="hero-grid__tagline">
+      Consultoría técnica para el sector minero y construcción
+    </p>
+    <span class="hero-grid__location">Loja, Ecuador · Desde 2019</span>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-grid__scroll">
+    <span>Selecciona un área</span>
+    <div class="hero-grid__scroll-dots">
+      @for (s of specialties; track s.slug; let i = $index) {
+        <span
+          class="hero-grid__scroll-dot"
+          [class.active]="isHovered(s.slug)"
+          [style.background]="isHovered(s.slug) ? s.accentColor : null"
+        ></span>
+      }
+    </div>
+  </div>
+
+</section>

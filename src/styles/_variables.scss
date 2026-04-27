@@ -1,0 +1,204 @@
+// ============================================================
+// GIAAT — VARIABLES GLOBALES
+// Librería centralizada de tokens de diseño
+// Cambiar aquí afecta a todo el proyecto
+// ============================================================
+
+// ------------------------------------------------------------
+// COLORES — MARCA GIAAT
+// Derivados del logo: triángulo verde/plateado
+// ------------------------------------------------------------
+
+// Verde principal (borde exterior brillante del triángulo)
+$green-primary:    #7CB842;
+
+// Verde oscuro (interior del triángulo)
+$green-dark:       #4D9A1A;
+
+// Verde claro (hover, highlights)
+$green-light:      #A8D55A;
+
+// Verde muy claro (fondos suaves)
+$green-pale:       #E8F5D0;
+
+// Plateado/Gris metálico (triángulo interior plateado)
+$silver:           #C0C0C0;
+$silver-dark:      #9E9E9E;
+
+// ------------------------------------------------------------
+// COLORES — FONDOS
+// ------------------------------------------------------------
+
+// Fondo oscuro principal (hero, servicios, footer)
+$bg-dark:          #1C1C1C;
+
+// Fondo oscuro secundario (cards, overlays)
+$bg-dark-2:        #252525;
+
+// Fondo oscuro terciario (bordes, separadores en dark)
+$bg-dark-3:        #333333;
+
+// Fondo blanco principal
+$bg-white:         #FFFFFF;
+
+// Fondo off-white (secciones claras alternativas)
+$bg-light:         #F7F7F7;
+
+// Fondo claro 2 (bordes, separadores en light)
+$bg-light-2:       #EEEEEE;
+
+// ------------------------------------------------------------
+// COLORES — TEXTO
+// ------------------------------------------------------------
+
+// Texto principal sobre fondo blanco
+$text-dark:        #333333;
+
+// Texto secundario / descripción
+$text-muted:       #888888;
+
+// Texto claro sobre fondos oscuros
+$text-light:       #FFFFFF;
+
+// Texto gris suave
+$text-gray:        #AAAAAA;
+
+// Color de texto del logo "GiAAT"
+$text-logo:        #555555;
+
+// ------------------------------------------------------------
+// COLORES — ESPECIALES
+// ------------------------------------------------------------
+
+// Overlay hero
+$overlay-hero:     rgba(0, 0, 0, 0.60);
+
+// Overlay cards
+$overlay-card:     rgba(28, 28, 28, 0.80);
+
+// Overlay card hover
+$overlay-hover:    rgba(28, 28, 28, 0.50);
+
+// Borde sutil
+$border-dark:      rgba(255, 255, 255, 0.08);
+$border-light:     rgba(0, 0, 0, 0.08);
+
+// Sombra
+$shadow-card:      0 8px 40px rgba(0, 0, 0, 0.25);
+$shadow-hover:     0 20px 60px rgba(0, 0, 0, 0.35);
+$shadow-green:     0 8px 30px rgba(124, 184, 66, 0.25);
+
+// ------------------------------------------------------------
+// TIPOGRAFÍA — FAMILIAS
+// Raleway: títulos grandes (peso mixto bold/light)
+// Inter: cuerpo, labels, nav, botones
+// ------------------------------------------------------------
+
+$font-heading:     'Raleway', sans-serif;
+$font-body:        'Inter', sans-serif;
+
+// ------------------------------------------------------------
+// TIPOGRAFÍA — PESOS
+// ------------------------------------------------------------
+
+$fw-thin:          100;
+$fw-light:         300;
+$fw-regular:       400;
+$fw-medium:        500;
+$fw-semibold:      600;
+$fw-bold:          700;
+$fw-extrabold:     800;
+$fw-black:         900;
+
+// ------------------------------------------------------------
+// TIPOGRAFÍA — ESCALA
+// ------------------------------------------------------------
+
+$fs-hero:          80px;    // Letra G-I-A-A-T en hero grid
+$fs-h1:            54px;    // Heading principal de sección
+$fs-h2:            40px;    // Heading secundario
+$fs-h3:            28px;    // Card titles, sub-headings
+$fs-h4:            20px;    // Nombres, nav activo
+$fs-body:          15px;    // Cuerpo de texto
+$fs-small:         13px;    // Meta, fechas, labels pequeños
+$fs-label:         11px;    // Section labels uppercase
+
+// ------------------------------------------------------------
+// TIPOGRAFÍA — ESPACIADO DE LETRAS
+// ------------------------------------------------------------
+
+$ls-label:         3px;     // Labels uppercase de sección
+$ls-nav:           1.5px;   // Nav links
+$ls-button:        2px;     // Botones uppercase
+$ls-hero:          8px;     // Letras del hero GIAAT
+
+// ------------------------------------------------------------
+// TIPOGRAFÍA — ALTURA DE LÍNEA
+// ------------------------------------------------------------
+
+$lh-heading:       1.10;
+$lh-body:          1.80;
+$lh-tight:         1.25;
+
+// ------------------------------------------------------------
+// ESPACIADOS
+// ------------------------------------------------------------
+
+$sp-xs:     8px;
+$sp-sm:     16px;
+$sp-md:     32px;
+$sp-lg:     64px;
+$sp-xl:     100px;
+$sp-2xl:    140px;
+
+// Padding de sección estándar
+$section-py:       $sp-xl;
+
+// Ancho máximo del contenedor
+$container-max:    1280px;
+$container-pad:    0 48px;
+
+// ------------------------------------------------------------
+// BREAKPOINTS
+// ------------------------------------------------------------
+
+$bp-mobile:   480px;
+$bp-tablet:   768px;
+$bp-desktop:  1024px;
+$bp-wide:     1440px;
+
+// ------------------------------------------------------------
+// HERO GRID — Variables específicas para las 5 cards G-I-A-A-T
+// ------------------------------------------------------------
+
+// Colores de acento por especialidad (usados en hover y detail page)
+$specialty-colors: (
+  'geotecnia':    #7CB842,   // Verde GIAAT
+  'ingenieria':   #5B9BD5,   // Azul técnico
+  'arquitectura': #E8A020,   // Ámbar/dorado
+  'ambiental':    #3DAA6A,   // Verde naturaleza
+  'topografia':   #9B6DB5    // Violeta/púrpura
+);
+
+// Función helper para obtener color de especialidad
+@function specialty-color($name) {
+  @return map-get($specialty-colors, $name);
+}
+
+// ------------------------------------------------------------
+// TRANSICIONES Y ANIMACIONES
+// ------------------------------------------------------------
+
+$transition-fast:    0.2s ease;
+$transition-base:    0.3s ease;
+$transition-slow:    0.5s ease;
+$transition-expand:  0.6s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-layout:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+// Z-index scale
+$z-base:       1;
+$z-card:       10;
+$z-navbar:     100;
+$z-overlay:    200;
+$z-modal:      300;
+$z-expanding:  400;

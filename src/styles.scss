@@ -1,0 +1,43 @@
+// ============================================================
+// GIAAT — ESTILOS GLOBALES
+// Entry point de SCSS — importa todos los partials
+// ============================================================
+
+// Partials (el orden importa)
+@use 'styles/variables' as *;
+@use 'styles/typography';
+@use 'styles/animations';
+
+// Reset mínimo adicional
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background: $bg-white;
+}
+
+// Scrollbar personalizado (Chrome/Edge)
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: $bg-dark; }
+::-webkit-scrollbar-thumb { background: $green-primary; border-radius: 3px; }
+
+// Contenedor principal
+.container {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: $container-pad;
+
+  @media (max-width: 768px) {
+    padding: 0 24px;
+  }
+}
+
+// Utilidades de layout
+.section--dark  { background: $bg-dark;  color: $text-light; }
+.section--light { background: $bg-white; color: $text-dark; }
+.section--gray  { background: $bg-light; color: $text-dark; }

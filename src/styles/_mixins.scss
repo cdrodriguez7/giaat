@@ -1,0 +1,219 @@
+// ============================================================
+// GIAAT — MIXINS GLOBALES
+// ============================================================
+@use 'variables' as *;
+
+// ------------------------------------------------------------
+// RESPONSIVE
+// ------------------------------------------------------------
+
+@mixin mobile  { @media (max-width: #{$bp-mobile})  { @content; } }
+@mixin tablet  { @media (max-width: #{$bp-tablet})  { @content; } }
+@mixin desktop { @media (max-width: #{$bp-desktop}) { @content; } }
+@mixin wide    { @media (min-width: #{$bp-wide})    { @content; } }
+
+// ------------------------------------------------------------
+// FLEXBOX
+// ------------------------------------------------------------
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// ------------------------------------------------------------
+// TIPOGRAFÍA — PATRONES COMUNES
+// ------------------------------------------------------------
+
+// Label de sección pequeño uppercase en verde
+@mixin section-label {
+  font-family: $font-body;
+  font-size: $fs-label;
+  font-weight: $fw-semibold;
+  letter-spacing: $ls-label;
+  text-transform: uppercase;
+  color: $green-primary;
+  display: block;
+  margin-bottom: $sp-sm;
+}
+
+// Heading con técnica bold-word + light-word
+// Usar: <h2><strong>Palabra</strong> resto del texto</h2>
+@mixin section-heading($color: $text-dark) {
+  font-family: $font-heading;
+  font-size: $fs-h1;
+  font-weight: $fw-light;
+  line-height: $lh-heading;
+  color: $color;
+  margin-bottom: $sp-md;
+
+  strong {
+    font-weight: $fw-extrabold;
+    color: $color;
+  }
+}
+
+@mixin section-heading-light {
+  @include section-heading($text-light);
+}
+
+// ------------------------------------------------------------
+// BOTONES
+// ------------------------------------------------------------
+
+@mixin btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-body;
+  font-size: $fs-small;
+  font-weight: $fw-semibold;
+  letter-spacing: $ls-button;
+  text-transform: uppercase;
+  color: $bg-dark;
+  background: $green-primary;
+  border: 2px solid $green-primary;
+  padding: 14px 36px;
+  cursor: pointer;
+  transition: background $transition-base, color $transition-base;
+  text-decoration: none;
+
+  &:hover {
+    background: $green-dark;
+    border-color: $green-dark;
+  }
+}
+
+@mixin btn-ghost($color: $green-primary) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $font-body;
+  font-size: $fs-small;
+  font-weight: $fw-semibold;
+  letter-spacing: $ls-button;
+  text-transform: uppercase;
+  color: $color;
+  background: transparent;
+  border: 1px solid $color;
+  padding: 13px 34px;
+  cursor: pointer;
+  transition: background $transition-base, color $transition-base;
+  text-decoration: none;
+
+  &:hover {
+    background: $color;
+    color: if($color == $text-light, $bg-dark, $text-light);
+  }
+}
+
+@mixin btn-text($color: $green-primary) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-body;
+  font-size: $fs-small;
+  font-weight: $fw-semibold;
+  letter-spacing: $ls-button;
+  text-transform: uppercase;
+  color: $color;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color $transition-base;
+
+  &:hover {
+    border-bottom-color: $color;
+  }
+}
+
+// ------------------------------------------------------------
+// IMÁGENES
+// ------------------------------------------------------------
+
+@mixin img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@mixin img-hover-zoom($scale: 1.05) {
+  overflow: hidden;
+
+  img {
+    @include img-cover;
+    transition: transform $transition-slow;
+  }
+
+  &:hover img {
+    transform: scale($scale);
+  }
+}
+
+// ------------------------------------------------------------
+// OVERLAYS
+// ------------------------------------------------------------
+
+@mixin overlay($color: $overlay-card) {
+  position: absolute;
+  inset: 0;
+  background: $color;
+  content: '';
+}
+
+// ------------------------------------------------------------
+// SCROLL ANIMATIONS
+// Las clases .reveal-up, .reveal-fade son añadidas por JS
+// cuando el elemento entra en viewport
+// ------------------------------------------------------------
+
+@mixin reveal-base {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+// ------------------------------------------------------------
+// CARD ESTILO DIACO
+// ------------------------------------------------------------
+
+@mixin card-dark {
+  background: $bg-dark-2;
+  border: 1px solid $bg-dark-3;
+  overflow: hidden;
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-4px);
+  }
+}
+
+// ------------------------------------------------------------
+// NÚMERO GHOST DECORATIVO
+// Ej: "01" grande con solo outline, sin relleno
+// ------------------------------------------------------------
+
+@mixin ghost-number($size: 100px, $color: $bg-light-2) {
+  font-family: $font-heading;
+  font-size: $size;
+  font-weight: $fw-extrabold;
+  color: transparent;
+  -webkit-text-stroke: 1.5px $color;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}

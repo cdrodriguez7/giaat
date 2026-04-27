@@ -1,0 +1,40 @@
+// ============================================================
+// GIAAT — TIPOGRAFÍA GLOBAL
+// ============================================================
+@use 'variables' as *;
+
+// Google Fonts se carga en index.html
+// Raleway 300, 700, 800 | Inter 400, 500, 600
+
+// Base
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-body;
+  font-size: $fs-body;
+  font-weight: $fw-regular;
+  line-height: $lh-body;
+  color: $text-dark;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  line-height: $lh-heading;
+  margin: 0;
+
+  strong {
+    font-weight: $fw-extrabold;
+  }
+}
+
+p { margin: 0; }
+a { text-decoration: none; color: inherit; }
+button { font-family: $font-body; }
+img { max-width: 100%; display: block; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; }

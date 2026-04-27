@@ -1,0 +1,360 @@
+<!-- ============================================================
+     SPECIALTY DETAIL — Vista expandida de cada área GIAAT
+     Estilo Diaco template adaptado al contenido de GIAAT
+     Se muestra al hacer click en una card del hero-grid
+============================================================ -->
+
+@if (specialty(); as sp) {
+
+  <div class="detail" [class.detail--entered]="entered()">
+
+    <!-- ======================================================
+         HERO DE LA ESPECIALIDAD
+         Imagen full-width, letra enorme de fondo, info arriba
+    ====================================================== -->
+    <section
+      class="detail__hero"
+      [style.background-image]="'url(' + sp.bgImage + ')'"
+    >
+      <div class="detail__hero-overlay"></div>
+
+      <!-- Letra de fondo gigante (ghost) -->
+      <span class="detail__hero-ghost">{{ sp.letter }}</span>
+
+      <!-- Navegación: volver + otras especialidades -->
+      <div class="detail__hero-nav">
+        <button class="detail__back-btn" (click)="goBack()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M15 9H3M7 5L3 9l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Volver
+        </button>
+
+        <div class="detail__specialty-switcher">
+          @for (s of allSpecialties; track s.slug) {
+            <button
+              class="detail__switcher-btn"
+              [class.active]="s.slug === sp.slug"
+              [style.--accent]="s.accentColor"
+              (click)="goToSpecialty(s.slug)"
+              [attr.aria-label]="s.name"
+            >{{ s.letter }}</button>
+          }
+        </div>
+      </div>
+
+      <!-- Contenido del hero -->
+      <div class="detail__hero-content container">
+        <div class="detail__hero-text">
+          <span class="detail__section-label reveal-up">
+            Área de especialización
+          </span>
+          <h1 class="detail__hero-title reveal-up" [style.color]="sp.accentColor">
+            {{ sp.name }}
+          </h1>
+          <p class="detail__hero-description reveal-up">
+            {{ sp.description }}
+          </p>
+          <div class="detail__hero-actions reveal-up">
+            <a href="#proyectos" class="detail__btn-primary" [style.background]="sp.accentColor">
+              Ver Proyectos
+            </a>
+            <a href="#contacto" class="detail__btn-ghost">
+              Cotizar
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         SERVICIOS — Lista de servicios de esta especialidad
+    ====================================================== -->
+    <section class="detail__services section--light">
+      <div class="container">
+
+        <div class="detail__services-inner">
+          <!-- Izquierda: Label + heading + descripción -->
+          <div class="detail__services-text">
+            <span class="detail__section-label reveal-up">Qué hacemos</span>
+            <h2 class="detail__heading reveal-up">
+              <strong>Servicios</strong><br>especializados.
+            </h2>
+            <p class="detail__body-text reveal-up">
+              En el área de {{ sp.name }} contamos con un equipo técnico especializado
+              y herramientas de última generación para cada proyecto.
+            </p>
+          </div>
+
+          <!-- Derecha: Grid de servicios numerados -->
+          <div class="detail__services-grid">
+            @for (service of sp.services; track service; let i = $index) {
+              <div class="detail__service-item reveal-up">
+                <span class="detail__service-number" [style.color]="sp.accentColor">
+                  {{ (i + 1).toString().padStart(2, '0') }}
+                </span>
+                <div class="detail__service-divider" [style.background]="sp.accentColor"></div>
+                <span class="detail__service-name">{{ service }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================
+         SOFTWARE — Herramientas usadas en esta área
+    ====================================================== -->
+    <section class="detail__software section--dark">
+      <div class="container">
+        <span class="detail__section-label reveal-up">Herramientas</span>
+        <h2 class="detail__heading detail__heading--light reveal-up">
+          <strong>Software</strong> técnico.
+        </h2>
+        <div class="detail__software-grid">
+          @for (tool of sp.software; track tool) {
+            <div class="detail__software-item reveal-up">
+              <span class="detail__software-name">{{ tool }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================
+         PROYECTOS — Galería filtrable estilo Diaco
+    ====================================================== -->
+    <section class="detail__projects section--light" id="proyectos">
+      <div class="container">
+
+        <div class="detail__projects-header">
+          <div>
+            <span class="detail__section-label reveal-up">Portafolio</span>
+            <h2 class="detail__heading reveal-up">
+              <strong>Proyectos</strong> realizados.
+            </h2>
+          </div>
+          <span class="detail__projects-count reveal-up">
+            {{ projects().length }} proyectos en esta área
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Gallery strip full-bleed (como Diaco) -->
+      @if (projects().length > 0) {
+        <div class="detail__gallery-strip">
+          @for (project of projects(); track project.id) {
+            <div
+              class="detail__gallery-item reveal-fade"
+              (click)="openProject(project)"
+            >
+              <img [src]="project.image" [alt]="project.title" loading="lazy" />
+              <div class="detail__gallery-overlay">
+                <span class="detail__gallery-label">{{ project.title }}</span>
+                <span class="detail__gallery-meta">{{ project.client }} · {{ project.year }}</span>
+                <div class="detail__gallery-expand" [style.border-color]="sp.accentColor">⤢</div>
+              </div>
+              <div class="detail__gallery-accent" [style.background]="sp.accentColor"></div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="container">
+          <p class="detail__empty-state">Proyectos en esta categoría próximamente.</p>
+        </div>
+      }
+
+    </section>
+
+
+    <!-- ======================================================
+         PROCESO — Tabs de metodología (estilo Diaco)
+         Análisis → Diseño → Ejecución → Entrega
+    ====================================================== -->
+    <section class="detail__process section--dark">
+      <div class="container">
+
+        <span class="detail__section-label reveal-up">Metodología</span>
+        <h2 class="detail__heading detail__heading--light reveal-up" style="text-align: center; margin-bottom: 8px;">
+          <strong>Cómo</strong> trabajamos.
+        </h2>
+        <p class="detail__process-subtitle reveal-up">
+          Cada proyecto sigue un proceso riguroso para garantizar calidad y precisión.
+        </p>
+
+        <!-- Tabs -->
+        <div class="detail__tabs reveal-up">
+          @for (tab of ['Análisis', 'Diseño', 'Ejecución', 'Entrega']; track tab; let i = $index) {
+            <button
+              class="detail__tab"
+              [class.active]="activeTab() === i"
+              [style.--accent]="sp.accentColor"
+              (click)="setTab(i)"
+            >{{ tab }}</button>
+          }
+        </div>
+
+        <!-- Contenido del tab activo -->
+        <div class="detail__tab-content">
+          @switch (activeTab()) {
+            @case (0) {
+              <div class="detail__tab-panel reveal-fade visible">
+                <div>
+                  <div class="detail__tab-icon" [style.border-color]="sp.accentColor">
+                    <span [style.color]="sp.accentColor">01</span>
+                  </div>
+                  <h3 class="detail__tab-title">Análisis y diagnóstico</h3>
+                  <p class="detail__tab-desc">
+                    Realizamos estudios de campo y recopilación de información técnica
+                    para construir una base sólida de diagnóstico antes de proponer soluciones.
+                  </p>
+                </div>
+                <div class="detail__tab-image">
+                  <img [src]="sp.bgImage" [alt]="sp.name" />
+                </div>
+              </div>
+            }
+            @case (1) {
+              <div class="detail__tab-panel reveal-fade visible">
+                <div>
+                  <div class="detail__tab-icon" [style.border-color]="sp.accentColor">
+                    <span [style.color]="sp.accentColor">02</span>
+                  </div>
+                  <h3 class="detail__tab-title">Diseño técnico</h3>
+                  <p class="detail__tab-desc">
+                    Desarrollamos el diseño utilizando software especializado, con
+                    cálculos verificados y planos de detalle según normativas vigentes.
+                  </p>
+                </div>
+                <div class="detail__tab-image">
+                  <img [src]="sp.bgImage" [alt]="sp.name" />
+                </div>
+              </div>
+            }
+            @case (2) {
+              <div class="detail__tab-panel reveal-fade visible">
+                <div>
+                  <div class="detail__tab-icon" [style.border-color]="sp.accentColor">
+                    <span [style.color]="sp.accentColor">03</span>
+                  </div>
+                  <h3 class="detail__tab-title">Supervisión y ejecución</h3>
+                  <p class="detail__tab-desc">
+                    Acompañamos la ejecución de obra con visitas técnicas periódicas,
+                    control de calidad y resolución de imprevistos en campo.
+                  </p>
+                </div>
+                <div class="detail__tab-image">
+                  <img [src]="sp.bgImage" [alt]="sp.name" />
+                </div>
+              </div>
+            }
+            @case (3) {
+              <div class="detail__tab-panel reveal-fade visible">
+                <div>
+                  <div class="detail__tab-icon" [style.border-color]="sp.accentColor">
+                    <span [style.color]="sp.accentColor">04</span>
+                  </div>
+                  <h3 class="detail__tab-title">Entrega e informe</h3>
+                  <p class="detail__tab-desc">
+                    Entregamos informes técnicos completos con memorias descriptivas,
+                    planos, cálculos y anexos, listos para trámites regulatorios.
+                  </p>
+                </div>
+                <div class="detail__tab-image">
+                  <img [src]="sp.bgImage" [alt]="sp.name" />
+                </div>
+              </div>
+            }
+          }
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ======================================================
+         CONTACTO CTA — Fondo oscuro, llamada a la acción
+    ====================================================== -->
+    <section class="detail__cta section--dark" id="contacto">
+      <div class="container">
+        <div class="detail__cta-inner reveal-up">
+          <div>
+            <span class="detail__section-label">Contacto</span>
+            <h2 class="detail__heading detail__heading--light">
+              <strong>Cotiza</strong> tu proyecto<br>de {{ sp.name }}.
+            </h2>
+          </div>
+          <div class="detail__cta-actions">
+            <a href="tel:+593960003737" class="detail__btn-primary" [style.background]="sp.accentColor">
+              +593 96 003 737
+            </a>
+            <a href="mailto:jolibet17&#64;hotmail.com" class="detail__btn-ghost">
+              jolibet17&#64;hotmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================
+         FOOTER MINI — Simple con links a otras especialidades
+    ====================================================== -->
+    <footer class="detail__footer">
+      <div class="container">
+        <div class="detail__footer-inner">
+          <span class="detail__footer-copy">&copy; 2025 GIAAT · Loja, Ecuador</span>
+          <div class="detail__footer-specialties">
+            @for (s of allSpecialties; track s.slug) {
+              <button
+                class="detail__footer-link"
+                [class.active]="s.slug === sp.slug"
+                [style.color]="s.slug === sp.slug ? sp.accentColor : null"
+                (click)="goToSpecialty(s.slug)"
+              >{{ s.name }}</button>
+            }
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ======================================================
+       MODAL DE PROYECTO
+  ====================================================== -->
+  @if (activeProject(); as project) {
+    <div class="detail__modal-backdrop" (click)="closeProject()">
+      <div class="detail__modal" (click)="$event.stopPropagation()">
+        <button class="detail__modal-close" (click)="closeProject()">✕</button>
+        <div class="detail__modal-image">
+          <img [src]="project.image" [alt]="project.title" />
+        </div>
+        <div class="detail__modal-body">
+          <span class="detail__modal-category" [style.color]="sp.accentColor">
+            {{ sp.name }}
+          </span>
+          <h3 class="detail__modal-title">{{ project.title }}</h3>
+          <div class="detail__modal-meta">
+            <span>{{ project.client }}</span>
+            <span>{{ project.year }}</span>
+            <span>{{ project.location }}</span>
+          </div>
+          <p class="detail__modal-description">{{ project.description }}</p>
+          <div class="detail__modal-tags">
+            @for (tag of project.tags; track tag) {
+              <span class="detail__modal-tag">{{ tag }}</span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+}

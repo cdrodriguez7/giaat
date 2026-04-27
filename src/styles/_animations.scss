@@ -1,0 +1,125 @@
+// ============================================================
+// GIAAT — ANIMACIONES GLOBALES
+// ============================================================
+
+// ------------------------------------------------------------
+// KEYFRAMES
+// ------------------------------------------------------------
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+@keyframes pulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 184, 66, 0.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(124, 184, 66, 0); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes rotateIn {
+  from { transform: rotate(-5deg) scale(0.95); opacity: 0; }
+  to   { transform: rotate(0deg)  scale(1);    opacity: 1; }
+}
+
+// ------------------------------------------------------------
+// CLASES DE REVEAL — Aplicadas por IntersectionObserver en TS
+// Cada elemento comienza invisible y se anima al entrar en viewport
+// ------------------------------------------------------------
+
+// Fade + subir desde abajo
+.reveal-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Solo fade
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+// Fade + venir desde izquierda
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Fade + venir desde derecha
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Delay escalonado para grupos de elementos (.reveal-up + nth)
+// Se asigna en TS automáticamente
+@for $i from 1 through 10 {
+  .reveal-delay-#{$i} {
+    transition-delay: #{$i * 0.1}s;
+  }
+}
+
+// ------------------------------------------------------------
+// CARD EXPAND — Animación de expansión de carta GIAAT
+// La tarjeta seleccionada se expande para cubrir el viewport
+// ------------------------------------------------------------
+
+.card-expanding {
+  animation: cardExpand 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardExpand {
+  0%   { clip-path: inset(0% 0% 0% 0%); }
+  100% { clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
+}
+
+// Página de detalle que entra luego de la expansión
+.page-enter {
+  animation: fadeUp 0.6s ease 0.3s both;
+}

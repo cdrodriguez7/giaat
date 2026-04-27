@@ -1,0 +1,56 @@
+@if (isDetailPage()) {
+<header
+  class="navbar"
+  [class.navbar--scrolled]="scrolled()"
+>
+  <div class="navbar__container">
+
+    <!-- Logo -->
+    <button class="navbar__logo" (click)="goHome()" aria-label="GIAAT inicio">
+      <img
+        class="navbar__logo-img"
+        src="assets/images/logo/logo.png"
+        alt="GIAAT"
+      />
+      <span class="navbar__logo-text">
+        Gi<strong>AA</strong>T
+      </span>
+    </button>
+
+    <!-- Links de navegación -->
+    <nav class="navbar__nav" [class.navbar__nav--open]="menuOpen()">
+
+      <button class="navbar__close" (click)="menuOpen.set(false)" aria-label="Cerrar menú">
+        <span></span><span></span>
+      </button>
+
+      <ul class="navbar__links">
+        <li><a routerLink="/"                          class="navbar__link" (click)="menuOpen.set(false)">Inicio</a></li>
+        <li><a routerLink="/nosotros"                  class="navbar__link" (click)="menuOpen.set(false)">Nosotros</a></li>
+        <li><a routerLink="/especialidad/geotecnia"    class="navbar__link" (click)="menuOpen.set(false)">Geotécnia</a></li>
+        <li><a routerLink="/especialidad/ingenieria"   class="navbar__link" (click)="menuOpen.set(false)">Ingeniería</a></li>
+        <li><a routerLink="/especialidad/arquitectura" class="navbar__link" (click)="menuOpen.set(false)">Arquitectura</a></li>
+        <li><a routerLink="/especialidad/ambiental"    class="navbar__link" (click)="menuOpen.set(false)">Ambiental</a></li>
+        <li><a routerLink="/especialidad/topografia"   class="navbar__link" (click)="menuOpen.set(false)">Topografía</a></li>
+      </ul>
+
+    </nav>
+
+    <!-- CTA + Hamburger -->
+    <div class="navbar__actions">
+      <a href="#contacto" class="navbar__cta">Cotizar</a>
+      <button
+        class="navbar__hamburger"
+        (click)="toggleMenu()"
+        [class.navbar__hamburger--open]="menuOpen()"
+        aria-label="Abrir menú"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+}

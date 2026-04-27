@@ -1,0 +1,687 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ============================================================
+// SPECIALTY DETAIL — Vista completa de cada área GIAAT
+// Estilo Diaco template: secciones dark/light alternadas
+// ============================================================
+
+.detail {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+
+  &--entered {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  // ── Estilos de sección compartidos ──────────────────────
+  section {
+    padding: $sp-xl 0;
+
+    @include tablet { padding: $sp-lg 0; }
+  }
+
+  &__section-label {
+    @include section-label;
+  }
+
+  &__heading {
+    @include section-heading;
+    font-size: $fs-h1;
+
+    @include tablet { font-size: 34px; }
+
+    &--light {
+      @include section-heading-light;
+    }
+  }
+
+  &__body-text {
+    font-size: $fs-body;
+    color: $text-muted;
+    line-height: $lh-body;
+    max-width: 540px;
+    margin-bottom: $sp-md;
+  }
+
+  // ── Botones ──────────────────────────────────────────────
+  &__btn-primary {
+    @include btn-primary;
+    background: $green-primary;
+    border-color: $green-primary;
+  }
+
+  &__btn-ghost {
+    @include btn-ghost($text-light);
+  }
+
+  // ============================================================
+  // HERO DE LA ESPECIALIDAD
+  // ============================================================
+  &__hero {
+    position: relative;
+    min-height: 90vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(0,0,0,0.75) 0%,
+        rgba(0,0,0,0.45) 100%
+      );
+    }
+
+    // Letra de fondo gigante
+    &-ghost {
+      position: absolute;
+      right: -40px;
+      bottom: -20px;
+      font-family: $font-heading;
+      font-size: 380px;
+      font-weight: $fw-extrabold;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    // Barra de navegación superior del hero
+    &-nav {
+      position: relative;
+      z-index: 2;
+      padding: 80px 48px 0;
+      @include flex-between;
+
+      @include tablet { padding: 80px 24px 0; }
+    }
+
+    // Contenido del hero
+    &-content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+    }
+
+    &-text {
+      max-width: 640px;
+    }
+
+    &-title {
+      font-family: $font-heading;
+      font-size: clamp(52px, 7vw, 90px);
+      font-weight: $fw-extrabold;
+      line-height: $lh-heading;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--specialty-accent, $green-primary);
+      margin-bottom: $sp-md;
+    }
+
+    &-description {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      line-height: $lh-body;
+      max-width: 500px;
+      margin-bottom: $sp-md;
+    }
+
+    &-actions {
+      display: flex;
+      gap: $sp-sm;
+      flex-wrap: wrap;
+    }
+  }
+
+  // ── Botón de volver ──────────────────────────────────────
+  &__back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: $font-body;
+    font-size: $fs-small;
+    font-weight: $fw-semibold;
+    letter-spacing: $ls-button;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color $transition-base, border-color $transition-base;
+
+    &:hover {
+      color: $text-light;
+      border-color: rgba(255,255,255,0.5);
+    }
+  }
+
+  // ── Switcher de especialidades ───────────────────────────
+  &__specialty-switcher {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__switcher-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.5);
+    font-family: $font-heading;
+    font-size: 14px;
+    font-weight: $fw-extrabold;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &.active,
+    &:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: $bg-dark;
+    }
+  }
+
+  // ============================================================
+  // SERVICIOS DE LA ESPECIALIDAD
+  // ============================================================
+  &__services {
+    &-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: $sp-2xl;
+      align-items: start;
+
+      @include desktop {
+        grid-template-columns: 1fr;
+        gap: $sp-lg;
+      }
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  &__service-item {
+    display: grid;
+    grid-template-columns: 52px 32px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid $bg-light-2;
+
+    &:first-child { border-top: 1px solid $bg-light-2; }
+  }
+
+  &__service-number {
+    font-family: $font-heading;
+    font-size: 24px;
+    font-weight: $fw-extrabold;
+    line-height: 1;
+  }
+
+  &__service-divider {
+    height: 2px;
+    width: 28px;
+  }
+
+  &__service-name {
+    font-family: $font-body;
+    font-size: $fs-body;
+    font-weight: $fw-medium;
+    color: $text-dark;
+  }
+
+  // ============================================================
+  // SOFTWARE
+  // ============================================================
+  &__software {
+    &-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $sp-sm;
+      margin-top: $sp-lg;
+    }
+
+    &-item {
+      border: 1px solid $bg-dark-3;
+      padding: 14px 28px;
+      transition: border-color $transition-base, transform $transition-base;
+
+      &:hover {
+        border-color: var(--specialty-accent, $green-primary);
+        transform: translateY(-2px);
+      }
+    }
+
+    &-name {
+      font-family: $font-body;
+      font-size: $fs-small;
+      font-weight: $fw-semibold;
+      letter-spacing: $ls-label;
+      text-transform: uppercase;
+      color: $text-light;
+    }
+  }
+
+  // ============================================================
+  // GALERÍA DE PROYECTOS — Full bleed strip estilo Diaco
+  // ============================================================
+  &__projects {
+    &-header {
+      @include flex-between;
+      margin-bottom: $sp-lg;
+      flex-wrap: wrap;
+      gap: $sp-sm;
+    }
+
+    &-count {
+      font-family: $font-body;
+      font-size: $fs-label;
+      font-weight: $fw-semibold;
+      letter-spacing: $ls-label;
+      text-transform: uppercase;
+      color: $text-muted;
+    }
+  }
+
+  &__gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+
+    img {
+      @include img-cover;
+      transition: transform $transition-slow;
+      background: $bg-dark-2;     // Placeholder mientras carga
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  &__gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: $overlay-card;
+    opacity: 0;
+    transition: opacity $transition-base;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 24px;
+
+    .detail__gallery-item:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__gallery-label {
+    font-family: $font-heading;
+    font-size: $fs-h4;
+    font-weight: $fw-bold;
+    color: $text-light;
+    margin-bottom: 6px;
+  }
+
+  &__gallery-meta {
+    font-family: $font-body;
+    font-size: $fs-small;
+    color: rgba(255,255,255,0.6);
+  }
+
+  &__gallery-expand {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    @include flex-center;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: $text-light;
+    font-size: 14px;
+  }
+
+  &__gallery-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    opacity: 0;
+    transition: opacity $transition-base;
+
+    .detail__gallery-item:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__empty-state {
+    color: $text-muted;
+    font-size: $fs-body;
+    padding: $sp-lg 0;
+    text-align: center;
+  }
+
+  // ============================================================
+  // PROCESO / METODOLOGÍA — Tabs estilo Diaco
+  // ============================================================
+  &__process {
+    &-subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: $fs-body;
+      max-width: 560px;
+      margin: 0 auto $sp-lg;
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: $sp-lg;
+    border-bottom: 1px solid $bg-dark-3;
+    flex-wrap: wrap;
+  }
+
+  &__tab {
+    font-family: $font-body;
+    font-size: $fs-small;
+    font-weight: $fw-semibold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $text-gray;
+    padding: 14px 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: color $transition-base;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent, $green-primary);
+      transform: scaleX(0);
+      transition: transform $transition-base;
+    }
+
+    &.active {
+      color: var(--accent, $green-primary);
+
+      &::after { transform: scaleX(1); }
+    }
+
+    &:hover:not(.active) { color: $text-light; }
+  }
+
+  &__tab-content {
+    min-height: 300px;
+  }
+
+  &__tab-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $sp-xl;
+    align-items: start;
+    text-align: left;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      gap: $sp-lg;
+    }
+  }
+
+  &__tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $sp-sm;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    width: fit-content;
+    margin-bottom: $sp-md;
+
+    span {
+      font-family: $font-heading;
+      font-size: 40px;
+      font-weight: $fw-extrabold;
+      line-height: 1;
+    }
+  }
+
+  &__tab-title {
+    font-family: $font-heading;
+    font-size: $fs-h3;
+    font-weight: $fw-bold;
+    color: $text-light;
+    margin-bottom: $sp-sm;
+  }
+
+  &__tab-desc {
+    font-size: $fs-body;
+    color: rgba(255,255,255,0.55);
+    line-height: $lh-body;
+  }
+
+  &__tab-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+
+    img {
+      @include img-cover;
+    }
+  }
+
+  // ============================================================
+  // CTA DE CONTACTO
+  // ============================================================
+  &__cta {
+    &-inner {
+      @include flex-between;
+      gap: $sp-lg;
+      flex-wrap: wrap;
+    }
+
+    &-actions {
+      display: flex;
+      gap: $sp-sm;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+
+  // ============================================================
+  // FOOTER MINI
+  // ============================================================
+  &__footer {
+    background: $bg-dark-2;
+    padding: $sp-md 0;
+    border-top: 1px solid $bg-dark-3;
+
+    &-inner {
+      @include flex-between;
+      flex-wrap: wrap;
+      gap: $sp-sm;
+    }
+
+    &-copy {
+      font-size: $fs-label;
+      font-weight: $fw-semibold;
+      letter-spacing: $ls-label;
+      text-transform: uppercase;
+      color: $text-muted;
+    }
+
+    &-specialties {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    &-link {
+      font-family: $font-body;
+      font-size: $fs-label;
+      font-weight: $fw-semibold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $text-gray;
+      background: transparent;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: color $transition-base;
+
+      &:hover { color: $text-light; }
+      &.active { font-weight: $fw-bold; }
+    }
+  }
+
+  // ============================================================
+  // MODAL DE PROYECTO
+  // ============================================================
+  &__modal {
+    &-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: $z-modal;
+      @include flex-center;
+      padding: $sp-md;
+      animation: fadeIn 0.3s ease;
+    }
+
+    background: $bg-white;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    animation: scaleIn 0.3s ease;
+    position: relative;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+
+    &-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      background: $bg-dark;
+      color: $text-light;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      @include flex-center;
+      z-index: 1;
+      transition: background $transition-base;
+
+      &:hover { background: $green-primary; }
+    }
+
+    &-image {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: $bg-light;
+
+      img { @include img-cover; }
+    }
+
+    &-body {
+      padding: $sp-md $sp-lg;
+    }
+
+    &-category {
+      @include section-label;
+      font-size: 10px;
+    }
+
+    &-title {
+      font-family: $font-heading;
+      font-size: $fs-h3;
+      font-weight: $fw-bold;
+      color: $text-dark;
+      margin-bottom: $sp-sm;
+      line-height: $lh-tight;
+    }
+
+    &-meta {
+      display: flex;
+      gap: $sp-sm;
+      flex-wrap: wrap;
+      margin-bottom: $sp-md;
+
+      span {
+        font-size: $fs-small;
+        color: $text-muted;
+        background: $bg-light;
+        padding: 4px 12px;
+        font-weight: $fw-medium;
+      }
+    }
+
+    &-description {
+      font-size: $fs-body;
+      color: $text-muted;
+      line-height: $lh-body;
+      margin-bottom: $sp-md;
+    }
+
+    &-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    &-tag {
+      font-size: 10px;
+      font-weight: $fw-semibold;
+      letter-spacing: $ls-label;
+      text-transform: uppercase;
+      color: var(--specialty-accent, $green-primary);
+      border: 1px solid currentColor;
+      padding: 4px 12px;
+    }
+  }
+}
