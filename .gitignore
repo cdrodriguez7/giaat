@@ -1,0 +1,40 @@
+# Angular compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Angular CLI cache
+/.angular
+
+# Dependencies
+/node_modules
+
+# Vercel deployment metadata
+/.vercel
+
+# IDEs and Editors
+/.idea
+/.project
+/.classpath
+/.cproject
+/.settings
+/.vscode
+/*.sublime-project
+/*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+
+# Local environment variables
+.env
+.env.local
+.env.*.local
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
