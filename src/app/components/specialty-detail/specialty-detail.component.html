@@ -107,7 +107,7 @@
 
 
     <!-- ======================================================
-         SOFTWARE — Herramientas usadas en esta área
+         SOFTWARE — Carrusel de logos de herramientas
     ====================================================== -->
     <section class="detail__software section--dark">
       <div class="container">
@@ -115,10 +115,39 @@
         <h2 class="detail__heading detail__heading--light reveal-up">
           <strong>Software</strong> técnico.
         </h2>
-        <div class="detail__software-grid">
-          @for (tool of sp.software; track tool) {
-            <div class="detail__software-item reveal-up">
-              <span class="detail__software-name">{{ tool }}</span>
+      </div>
+
+      <!-- Carrusel full-bleed con scroll infinito -->
+      <div class="detail__carousel-wrapper reveal-up">
+        <div class="detail__carousel-track" [style.--tool-count]="sp.softwareTools.length">
+          <!-- Dos copias para loop infinito -->
+          @for (tool of sp.softwareTools; track tool.name) {
+            <div class="detail__carousel-card">
+              <div class="detail__carousel-logo-wrap">
+                <img
+                  [src]="tool.logoUrl"
+                  [alt]="tool.name"
+                  class="detail__carousel-logo"
+                  loading="lazy"
+                  (error)="onLogoError($event, tool.name)"
+                />
+              </div>
+              <span class="detail__carousel-name">{{ tool.name }}</span>
+            </div>
+          }
+          <!-- Copia duplicada para el loop continuo -->
+          @for (tool of sp.softwareTools; track $index) {
+            <div class="detail__carousel-card" aria-hidden="true">
+              <div class="detail__carousel-logo-wrap">
+                <img
+                  [src]="tool.logoUrl"
+                  [alt]="tool.name"
+                  class="detail__carousel-logo"
+                  loading="lazy"
+                  (error)="onLogoError($event, tool.name)"
+                />
+              </div>
+              <span class="detail__carousel-name">{{ tool.name }}</span>
             </div>
           }
         </div>

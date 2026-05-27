@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 48" fill="none">
+  <!-- Slide (Rocscience) - dark blue/navy -->
+  <rect width="130" height="48" rx="4" fill="#1A2E4A"/>
+  <!-- Rock/slope icon -->
+  <polygon points="14,36 28,18 42,36" stroke="#4A90D9" stroke-width="2" fill="rgba(74,144,217,0.2)"/>
+  <line x1="8" y1="36" x2="48" y2="36" stroke="#4A90D9" stroke-width="2"/>
+  <text x="56" y="21" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="#4A90D9" letter-spacing="0.5">ROCSCIENCE</text>
+  <text x="56" y="38" font-family="Arial Black, sans-serif" font-size="16" font-weight="900" fill="white">Slide</text>
+</svg>

@@ -95,6 +95,20 @@ export class SpecialtyDetailComponent implements OnInit, AfterViewInit, OnDestro
   openProject(project: Project): void  { this.activeProject.set(project); }
   closeProject(): void                  { this.activeProject.set(null); }
 
+  // ── Fallback si falla la carga de un logo ────────────────
+  onLogoError(event: Event, name: string): void {
+    const img = event.target as HTMLImageElement;
+    // Reemplazar con un SVG placeholder con el nombre del software
+    img.style.display = 'none';
+    const parent = img.parentElement;
+    if (parent && !parent.querySelector('.logo-fallback')) {
+      const span = document.createElement('span');
+      span.className = 'logo-fallback';
+      span.textContent = name;
+      parent.appendChild(span);
+    }
+  }
+
   // ── Navegar a otra especialidad ───────────────────────────
   goToSpecialty(slug: string): void {
     this.router.navigate(['/especialidad', slug]);

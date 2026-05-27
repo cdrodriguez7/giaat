@@ -18,7 +18,8 @@ export interface Specialty {
   accentColor: string;         // Color de acento propio
   bgImage:     string;         // Ruta imagen de fondo de la card
   services:    string[];       // Lista de servicios específicos
-  software:    string[];       // Herramientas usadas en esta área
+  software:      string[];          // Herramientas usadas en esta área
+  softwareTools: SoftwareTool[];    // Logos para el carrusel
 }
 
 export interface Project {
@@ -41,7 +42,6 @@ export interface StatItem {
 }
 
 export interface SoftwareTool {
-  name:     string;
-  category: 'ingenieria' | 'render' | 'edicion' | '3d';
-  logo:     string;
+  name:    string;
+  logoUrl: string;  // URL o ruta al logo SVG/PNG
 }

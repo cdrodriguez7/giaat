@@ -18,6 +18,12 @@ export const SPECIALTIES: Specialty[] = [
       'Perfiles estratigráficos',
     ],
     software: ['Civil 3D', 'Slide 2D/3D', 'ArcGIS', 'AutoCAD'],
+    softwareTools: [
+      { name: 'Civil 3D',    logoUrl: 'assets/logos/civil3d.svg' },
+      { name: 'Slide 2D/3D', logoUrl: 'assets/logos/slide.svg' },
+      { name: 'ArcGIS',      logoUrl: 'assets/logos/arcgis.svg' },
+      { name: 'AutoCAD',     logoUrl: 'assets/logos/autocad.svg' },
+    ],
   },
   {
     slug:        'ingenieria',
@@ -36,6 +42,12 @@ export const SPECIALTIES: Specialty[] = [
       'Memorias de cálculo estructural',
     ],
     software: ['Civil 3D', 'AutoCAD', 'SAP2000', 'ETABS'],
+    softwareTools: [
+      { name: 'Civil 3D', logoUrl: 'assets/logos/civil3d.svg' },
+      { name: 'AutoCAD',  logoUrl: 'assets/logos/autocad.svg' },
+      { name: 'SAP2000',  logoUrl: 'assets/logos/sap2000.svg' },
+      { name: 'ETABS',    logoUrl: 'assets/logos/etabs.svg' },
+    ],
   },
   {
     slug:        'arquitectura',
@@ -54,6 +66,13 @@ export const SPECIALTIES: Specialty[] = [
       'Presupuestos de obra',
     ],
     software: ['Revit', 'SketchUp', 'Lumion', 'D5 Render', 'AutoCAD'],
+    softwareTools: [
+      { name: 'Revit',    logoUrl: 'assets/logos/revit.svg' },
+      { name: 'SketchUp', logoUrl: 'assets/logos/sketchup.svg' },
+      { name: 'Lumion',   logoUrl: 'assets/logos/lumion.svg' },
+      { name: 'D5 Render',logoUrl: 'assets/logos/d5render.svg' },
+      { name: 'AutoCAD',  logoUrl: 'assets/logos/autocad.svg' },
+    ],
   },
   {
     slug:        'ambiental',
@@ -72,6 +91,11 @@ export const SPECIALTIES: Specialty[] = [
       'Gestión de residuos sólidos',
     ],
     software: ['ArcGIS', 'AutoCAD', 'InDesign'],
+    softwareTools: [
+      { name: 'ArcGIS',   logoUrl: 'assets/logos/arcgis.svg' },
+      { name: 'AutoCAD',  logoUrl: 'assets/logos/autocad.svg' },
+      { name: 'InDesign', logoUrl: 'assets/logos/indesign.svg' },
+    ],
   },
   {
     slug:        'topografia',
@@ -90,5 +114,10 @@ export const SPECIALTIES: Specialty[] = [
       'Perfiles longitudinales y transversales',
     ],
     software: ['Civil 3D', 'ArcGIS', 'AutoCAD'],
+    softwareTools: [
+      { name: 'Civil 3D', logoUrl: 'assets/logos/civil3d.svg' },
+      { name: 'ArcGIS',   logoUrl: 'assets/logos/arcgis.svg' },
+      { name: 'AutoCAD',  logoUrl: 'assets/logos/autocad.svg' },
+    ],
   },
 ];

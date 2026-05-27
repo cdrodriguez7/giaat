@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48" fill="none">
+  <!-- ArcGIS: Esri blue gradient logo style -->
+  <rect width="120" height="48" rx="4" fill="#3A7FD5"/>
+  <!-- Simplified globe arc icon -->
+  <circle cx="26" cy="24" r="12" stroke="white" stroke-width="2" fill="none"/>
+  <ellipse cx="26" cy="24" rx="5" ry="12" stroke="white" stroke-width="1.5" fill="none"/>
+  <line x1="14" y1="24" x2="38" y2="24" stroke="white" stroke-width="1.5"/>
+  <text x="44" y="21" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="white" opacity="0.8" letter-spacing="0.5">ESRI</text>
+  <text x="44" y="37" font-family="Arial Black, sans-serif" font-size="15" font-weight="900" fill="white">ArcGIS</text>
+</svg>

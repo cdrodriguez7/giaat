@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 48" fill="none">
+  <!-- ETABS: CSI style - dark teal -->
+  <rect width="110" height="48" rx="4" fill="#005F7A"/>
+  <!-- Building icon -->
+  <rect x="10" y="12" width="14" height="24" stroke="#5EC8E0" stroke-width="1.5" fill="none"/>
+  <rect x="20" y="18" width="14" height="18" stroke="#5EC8E0" stroke-width="1.5" fill="none"/>
+  <line x1="8" y1="36" x2="36" y2="36" stroke="#5EC8E0" stroke-width="2"/>
+  <text x="44" y="21" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="#5EC8E0" letter-spacing="0.5">CSI</text>
+  <text x="44" y="38" font-family="Arial Black, sans-serif" font-size="18" font-weight="900" fill="white">ETABS</text>
+</svg>
