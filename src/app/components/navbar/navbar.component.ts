@@ -45,6 +45,17 @@ export class NavbarComponent {
   }
 
   goHome(): void {
+    this.menuOpen.set(false);
     this.router.navigate(['/']);
+  }
+
+  // Scroll suave al id de contacto en la página actual
+  scrollToContact(): void {
+    this.menuOpen.set(false);
+    const el = document.getElementById('contacto');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   }
 }

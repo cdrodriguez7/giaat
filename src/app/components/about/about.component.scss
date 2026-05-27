@@ -393,7 +393,8 @@
     color: $text-light;
     line-height: 1;
 
-    @include mobile { font-size: 40px; }
+    @include sm     { font-size: 44px; }  // Móvil grande: ligeramente reducido
+    @include mobile { font-size: 36px; }  // Mobile: más compacto en grid de 2 cols
   }
 
   &__label {
@@ -586,7 +587,7 @@
     @include tablet { margin-top: 0; }
   }
 
-  // ── Stage: contenedor de fotos ───────────────────────────
+  // ── Stage: contenedor de fotos ────────────────────────────────
   &__stage {
     position: relative;
     background: #e8e8e8;   // Fondo neutro idéntico al de las fotos editoriales
@@ -597,8 +598,9 @@
     min-height: 700px;
 
     @include desktop { min-height: 600px; }
-    @include tablet  { min-height: 560px; }
-    @include mobile  { min-height: 460px; }
+    @include tablet  { min-height: 520px; }  // Reducido para no exceder pantallas de 768px de alto
+    @include sm      { min-height: 440px; }  // Móvil grande
+    @include mobile  { min-height: 360px; }  // iPhone SE/móvil pequeño — no puede ser 460px
   }
 
   // ── Slide individual ─────────────────────────────────────
@@ -656,7 +658,8 @@
       z-index: 1;
 
       @include tablet { transform: translateX(-58%) scale(0.85); }
-      @include mobile { transform: translateX(-62%) scale(0.82); }
+      @include sm     { transform: translateX(-60%) scale(0.83); }  // Móvil grande
+      @include mobile { transform: translateX(-65%) scale(0.80); }  // Más desplazado para apenas asomar
     }
 
     // Slide SIGUIENTE — asomando claramente por la derecha
@@ -668,7 +671,8 @@
       z-index: 1;
 
       @include tablet { transform: translateX(58%) scale(0.85); }
-      @include mobile { transform: translateX(62%) scale(0.82); }
+      @include sm     { transform: translateX(60%) scale(0.83); }   // Móvil grande
+      @include mobile { transform: translateX(65%) scale(0.80); }   // Más desplazado para apenas asomar
     }
   }
 

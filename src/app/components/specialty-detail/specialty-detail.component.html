@@ -56,10 +56,19 @@
             {{ sp.description }}
           </p>
           <div class="detail__hero-actions reveal-up">
-            <a href="#proyectos" class="detail__btn-primary" [style.background]="sp.accentColor">
+            <a
+              (click)="scrollTo('proyectos')"
+              class="detail__btn-primary"
+              [style.background]="sp.accentColor"
+              style="cursor: pointer;"
+            >
               Ver Proyectos
             </a>
-            <a href="#contacto" class="detail__btn-ghost">
+            <a
+              (click)="scrollTo('contacto')"
+              class="detail__btn-ghost"
+              style="cursor: pointer;"
+            >
               Cotizar
             </a>
           </div>
@@ -326,28 +335,101 @@
 
 
     <!-- ======================================================
-         CONTACTO CTA — Fondo oscuro, llamada a la acción
+         CONTACTO CTA — Fondo oscuro, 3 canales de acción directa
     ====================================================== -->
     <section class="detail__cta section--dark" id="contacto">
       <div class="container">
-        <div class="detail__cta-inner reveal-up">
-          <div>
-            <span class="detail__section-label">Contacto</span>
-            <h2 class="detail__heading detail__heading--light">
-              <strong>Cotiza</strong> tu proyecto<br>de {{ sp.name }}.
-            </h2>
-          </div>
-          <div class="detail__cta-actions">
-            <a href="tel:+593960003737" class="detail__btn-primary" [style.background]="sp.accentColor">
-              +593 96 003 737
-            </a>
-            <a href="mailto:jolibet17&#64;hotmail.com" class="detail__btn-ghost">
-              jolibet17&#64;hotmail.com
-            </a>
-          </div>
+
+        <!-- Encabezado -->
+        <div class="detail__cta-header reveal-up">
+          <span class="detail__section-label">Contacto</span>
+          <h2 class="detail__heading detail__heading--light">
+            <strong>Cotiza</strong> tu proyecto<br>de {{ sp.name }}.
+          </h2>
+          <p class="detail__cta-sub">
+            Respondemos en menos de 24 horas. Elige el canal que prefieras.
+          </p>
         </div>
+
+        <!-- 3 canales de contacto -->
+        <div class="detail__cta-channels reveal-up">
+
+          <!-- WhatsApp -->
+          <a
+            [href]="whatsappUrl()"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="detail__cta-channel detail__cta-channel--whatsapp"
+          >
+            <div class="detail__cta-channel-icon">
+              <!-- WhatsApp SVG -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.523 5.851L.057 23.057a.75.75 0 0 0 .916.942l5.353-1.429A11.934 11.934 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.66-.523-5.17-1.43l-.37-.22-3.18.848.864-3.1-.24-.39A10 10 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+              </svg>
+            </div>
+            <div class="detail__cta-channel-body">
+              <span class="detail__cta-channel-label">WhatsApp</span>
+              <span class="detail__cta-channel-value">+593 96 003 737</span>
+              <span class="detail__cta-channel-hint">Mensaje automático con tu especialidad</span>
+            </div>
+            <div class="detail__cta-channel-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Teléfono -->
+          <a
+            href="tel:+593960003737"
+            class="detail__cta-channel"
+          >
+            <div class="detail__cta-channel-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.09 13 19.79 19.79 0 0 1 1 4.4 2 2 0 0 1 2.96 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16.92z"/>
+              </svg>
+            </div>
+            <div class="detail__cta-channel-body">
+              <span class="detail__cta-channel-label">Llamada directa</span>
+              <span class="detail__cta-channel-value">+593 96 003 737</span>
+              <span class="detail__cta-channel-hint">Lun – Vie, 8:00 – 18:00</span>
+            </div>
+            <div class="detail__cta-channel-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Email -->
+          <a
+            href="mailto:jolibet17&#64;hotmail.com?subject=Cotización {{ sp.name }} — GIAAT"
+            class="detail__cta-channel"
+          >
+            <div class="detail__cta-channel-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="detail__cta-channel-body">
+              <span class="detail__cta-channel-label">Correo electrónico</span>
+              <span class="detail__cta-channel-value">jolibet17&#64;hotmail.com</span>
+              <span class="detail__cta-channel-hint">Asunto pre-rellenado con tu área</span>
+            </div>
+            <div class="detail__cta-channel-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </a>
+
+        </div>
+
       </div>
     </section>
+
 
 
     <!-- ======================================================
@@ -380,8 +462,14 @@
     <div class="detail__modal-backdrop" (click)="closeProject()">
       <div class="detail__modal" (click)="$event.stopPropagation()">
         <button class="detail__modal-close" (click)="closeProject()">✕</button>
-        <div class="detail__modal-image">
+        <div class="detail__modal-image" (click)="openLightbox(project.image)" title="Ver imagen completa">
           <img [src]="project.image" [alt]="project.title" />
+          <!-- Icono de zoom sobre la imagen -->
+          <div class="detail__modal-image-zoom" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 3h5M3 3v5M17 3h-5M17 3v5M3 17h5M3 17v-5M17 17h-5M17 17v-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
         </div>
         <div class="detail__modal-body">
           <span class="detail__modal-category" [style.color]="sp.accentColor">
@@ -401,6 +489,36 @@
           </div>
         </div>
       </div>
+    </div>
+  }
+
+  <!-- ======================================================
+       LIGHTBOX — Imagen a pantalla completa al hacer click
+  ====================================================== -->
+  @if (lightboxImage(); as imgUrl) {
+    <div
+      class="detail__lightbox"
+      (click)="closeLightbox()"
+      (keydown.escape)="closeLightbox()"
+      tabindex="0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Vista ampliada del proyecto"
+    >
+      <!-- Botón cerrar -->
+      <button class="detail__lightbox-close" (click)="closeLightbox()" aria-label="Cerrar">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Imagen centrada — click en ella NO cierra el lightbox -->
+      <div class="detail__lightbox-frame" (click)="$event.stopPropagation()">
+        <img [src]="imgUrl" alt="Vista ampliada" class="detail__lightbox-img" />
+      </div>
+
+      <!-- Indicador de cierre -->
+      <p class="detail__lightbox-hint">Haz click fuera de la imagen para cerrar</p>
     </div>
   }
 

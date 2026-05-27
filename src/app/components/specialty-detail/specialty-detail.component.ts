@@ -26,10 +26,11 @@ export class SpecialtyDetailComponent implements OnInit, AfterViewInit, OnDestro
   private route  = inject(ActivatedRoute);
   private router = inject(Router);
 
-  specialty     = signal<Specialty | null>(null);
-  activeProject = signal<Project | null>(null);
-  activeTab     = signal<number>(0);
-  entered       = signal(false);
+  specialty      = signal<Specialty | null>(null);
+  activeProject  = signal<Project | null>(null);
+  activeTab      = signal<number>(0);
+  entered        = signal(false);
+  lightboxImage  = signal<string | null>(null);  // URL de la imagen en lightbox
 
   projects = computed<Project[]>(() => {
     const s = this.specialty();
@@ -37,12 +38,36 @@ export class SpecialtyDetailComponent implements OnInit, AfterViewInit, OnDestro
     return PROJECTS.filter(p => p.category === s.slug);
   });
 
+  // Link de WhatsApp con mensaje pre-redactado según la especialidad activa
+  whatsappUrl = computed<string>(() => {
+    const s = this.specialty();
+    const area = s ? s.name : 'consultoría';
+    const msg = encodeURIComponent(
+      `Hola, me interesa solicitar una cotización para el área de ${area}. ` +
+      `¿Podrían contactarme para conocer más detalles?`
+    );
+    return `https://wa.me/593960003737?text=${msg}`;
+  });
+
   allSpecialties = SPECIALTIES;
 
   private paramSub?: Subscription;
   private observer?: IntersectionObserver;
+  private keyListener?: (e: KeyboardEvent) => void;  // Listener global para Escape
 
   ngOnInit(): void {
+    // Listener global de teclado — cierra lightbox y modal con Escape
+    this.keyListener = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (this.lightboxImage()) {
+          this.closeLightbox();
+        } else if (this.activeProject()) {
+          this.closeProject();
+        }
+      }
+    };
+    document.addEventListener('keydown', this.keyListener);
+
     // Subscribe (not snapshot) so re-navigation between specialties works
     this.paramSub = this.route.paramMap.subscribe(params => {
       const slug = params.get('slug') as SpecialtySlug;
@@ -83,6 +108,8 @@ export class SpecialtyDetailComponent implements OnInit, AfterViewInit, OnDestro
   ngOnDestroy(): void {
     this.paramSub?.unsubscribe();
     this.observer?.disconnect();
+    if (this.keyListener) document.removeEventListener('keydown', this.keyListener);
+    document.body.style.overflow = '';   // Asegurar restaurar scroll al destruir
     document.documentElement.style.removeProperty('--specialty-accent');
   }
 
@@ -92,8 +119,19 @@ export class SpecialtyDetailComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   // ── Modal de proyecto ────────────────────────────────────
-  openProject(project: Project): void  { this.activeProject.set(project); }
-  closeProject(): void                  { this.activeProject.set(null); }
+  openProject(project: Project): void  {
+    this.activeProject.set(project);
+    document.body.style.overflow = 'hidden';   // Bloquear scroll al abrir modal
+  }
+  closeProject(): void {
+    this.activeProject.set(null);
+    this.lightboxImage.set(null);              // Cerrar lightbox también si estaba abierto
+    document.body.style.overflow = '';         // Restaurar scroll
+  }
+
+  // ── Lightbox de imagen a pantalla completa ───────────────
+  openLightbox(url: string): void  { this.lightboxImage.set(url); }
+  closeLightbox(): void            { this.lightboxImage.set(null); }
 
   // ── Fallback si falla la carga de un logo ────────────────
   onLogoError(event: Event, name: string): void {
@@ -117,6 +155,16 @@ export class SpecialtyDetailComponent implements OnInit, AfterViewInit, OnDestro
   // ── Volver al hero grid ──────────────────────────────────
   goBack(): void {
     this.router.navigate(['/']);
+  }
+
+  // ── Scroll suave a una sección de la página ───────────────
+  // Descuenta el alto de la navbar fija (70px) para que el contenido no quede tapado
+  scrollTo(sectionId: string): void {
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    const navbarHeight = 70;
+    const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 
   // ── IntersectionObserver para .reveal-up / .reveal-fade ──

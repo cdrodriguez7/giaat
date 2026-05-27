@@ -9,6 +9,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;   // Evita el salto del browser bar en iOS Safari
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -335,6 +336,7 @@
   @include tablet {
     height: auto;
     min-height: 100vh;
+    min-height: 100dvh;   // Soporte moderno para iOS
 
     &__cards {
       flex-direction: column;
@@ -343,22 +345,22 @@
 
     &__card {
       flex: none !important;
-      height: 18vh;
-      min-height: 120px;
+      height: 18svh;          // svh: small viewport height — seguro en mobile browsers
+      min-height: 110px;
       border-right: none;
       border-bottom: 1px solid $border-dark;
 
       &.is-hovered {
-        height: 32vh;
+        height: 30svh;
       }
 
       &.is-expanding {
-        height: 100vh;
+        height: 100dvh;
       }
     }
 
     &__card-letter {
-      font-size: 64px;
+      font-size: 56px;        // Reducido de 64px para tablet
       bottom: auto;
       top: 50%;
       transform: translateY(-50%);
@@ -383,7 +385,8 @@
   // Las 5 tarjetas se apilan verticalmente. Cada una ocupa 1/5
   // del viewport menos el footer (~56px). El tap expande a 100dvh.
   @include mobile {
-    height: 100dvh;
+    height: 100svh;   // svh = no incluye browser bar → más estable
+    height: 100dvh;   // dvh: fallback mejorado (browsers modernos)
     min-height: unset;
 
     &__cards {
@@ -483,11 +486,11 @@
     // Footer compacto
     &__footer {
       flex: none;
-      padding: 10px 20px;
+      padding: 8px 16px;   // Más compacto en mobile para no robar espacio a las cards
       gap: 2px;
     }
 
-    &__tagline { font-size: 11px; letter-spacing: 0; }
+    &__tagline { font-size: 10px; letter-spacing: 0; }
     &__location { font-size: 8px; }
 
     &__scroll { display: none; }

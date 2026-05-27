@@ -92,6 +92,10 @@
       line-height: 1;
       user-select: none;
       pointer-events: none;
+
+      @include desktop { font-size: 280px; right: -20px; }  // Reducida en 1024px
+      @include tablet  { font-size: 180px; right: -10px; bottom: -10px; }  // Tablet
+      @include mobile  { display: none; }   // Oculta en móvil: no aporta y puede causar overflow
     }
 
     // Barra de navegación superior del hero
@@ -102,6 +106,7 @@
       @include flex-between;
 
       @include tablet { padding: 80px 24px 0; }
+      @include mobile { padding: 72px 16px 0; }  // Reducido: menos espacio vertical en móvil
     }
 
     // Contenido del hero
@@ -204,8 +209,8 @@
       gap: $sp-2xl;
       align-items: start;
 
-      @include desktop {
-        grid-template-columns: 1fr;
+      @include tablet {
+        grid-template-columns: 1fr;    // Colapsa en tablet, no solo en desktop
         gap: $sp-lg;
       }
     }
@@ -611,6 +616,9 @@
     position: relative;
     transition: color $transition-base;
 
+    @include sm     { padding: 12px 18px; font-size: 10px; }  // Móvil grande: más estrecho
+    @include mobile { padding: 10px 12px; font-size: 9px;  }  // Mobile: caben los 4 tabs
+
     &::after {
       content: '';
       position: absolute;
@@ -691,20 +699,149 @@
   }
 
   // ============================================================
-  // CTA DE CONTACTO
+  // CTA DE CONTACTO — 3 canales de acción directa
   // ============================================================
   &__cta {
-    &-inner {
-      @include flex-between;
-      gap: $sp-lg;
-      flex-wrap: wrap;
+    &-header {
+      text-align: center;
+      margin-bottom: $sp-xl;
+
+      @include mobile { margin-bottom: $sp-lg; }
     }
 
-    &-actions {
+    &-sub {
+      font-family: $font-body;
+      font-size: $fs-body;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: $lh-body;
+      margin-top: $sp-sm;
+
+      @include mobile { font-size: 14px; }
+    }
+
+    // Grid de los 3 canales
+    &-channels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;                          // Gap de 1px → border visual entre cards
+      background: $border-dark;         // Color del gap
+      border: 1px solid $border-dark;   // Borde exterior
+
+      @include tablet { grid-template-columns: 1fr; }  // Columna en tablet/mobile
+    }
+
+    // Card individual de canal
+    &-channel {
       display: flex;
-      gap: $sp-sm;
-      flex-wrap: wrap;
       align-items: center;
+      gap: $sp-md;
+      padding: $sp-lg $sp-md;
+      background: $bg-dark-2;
+      text-decoration: none;
+      transition: background $transition-base;
+      position: relative;
+      overflow: hidden;
+
+      // Línea de acento en la base (aparece en hover)
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--specialty-accent, $green-primary);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform $transition-base;
+      }
+
+      &:hover {
+        background: $bg-dark-3;
+
+        &::after { transform: scaleX(1); }
+
+        .detail__cta-channel-arrow {
+          transform: translateX(4px);
+          color: var(--specialty-accent, $green-primary);
+        }
+
+        .detail__cta-channel-icon {
+          color: var(--specialty-accent, $green-primary);
+        }
+      }
+
+      // WhatsApp: color verde propio al hover
+      &--whatsapp:hover {
+        .detail__cta-channel-icon { color: #25D366; }
+        &::after { background: #25D366; }
+      }
+
+      @include tablet {
+        padding: $sp-md 20px;
+      }
+
+      @include mobile {
+        padding: $sp-sm 16px;
+        gap: $sp-sm;
+      }
+    }
+
+    &-channel-icon {
+      width: 52px;
+      height: 52px;
+      border: 1px solid $border-dark;
+      @include flex-center;
+      flex-shrink: 0;
+      color: rgba(255, 255, 255, 0.4);
+      transition: color $transition-base, border-color $transition-base;
+
+      @include mobile { width: 42px; height: 42px; }
+    }
+
+    &-channel-body {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    &-channel-label {
+      font-family: $font-body;
+      font-size: $fs-label;
+      font-weight: $fw-semibold;
+      letter-spacing: $ls-label;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    &-channel-value {
+      font-family: $font-heading;
+      font-size: 16px;
+      font-weight: $fw-semibold;
+      color: $text-light;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @include mobile { font-size: 14px; }
+    }
+
+    &-channel-hint {
+      font-family: $font-body;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.28);
+      line-height: 1.4;
+    }
+
+    &-channel-arrow {
+      color: rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      transition: transform $transition-base, color $transition-base;
+      margin-left: auto;
+
+      @include mobile { display: none; }  // En mobile no hay suficiente espacio
     }
   }
 
@@ -720,6 +857,12 @@
       @include flex-between;
       flex-wrap: wrap;
       gap: $sp-sm;
+
+      @include tablet {
+        flex-direction: column;    // Apila copyright y links en móvil
+        align-items: flex-start;
+        gap: 12px;
+      }
     }
 
     &-copy {
@@ -766,6 +909,8 @@
       @include flex-center;
       padding: $sp-md;
       animation: fadeIn 0.3s ease;
+
+      @include mobile { padding: 12px; }  // Más espacio para el modal en mobile
     }
 
     background: $bg-white;
@@ -778,14 +923,23 @@
     animation: scaleIn 0.3s ease;
     position: relative;
 
+    // En tablet/móvil: columna única — imagen compacta + texto después
     @include tablet {
       grid-template-columns: 1fr;
+      grid-template-rows: 280px 1fr;  // Imagen fija 280px, body ocupa el resto
+      max-height: 92dvh;              // dvh: evita el salto del browser bar
+      overflow-y: auto;
+    }
+
+    @include mobile {
+      grid-template-rows: 220px 1fr;  // Imagen más pequeña en teléfonos
+      max-height: 94dvh;
     }
 
     &-close {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 12px;
+      right: 12px;
       width: 32px;
       height: 32px;
       background: $bg-dark;
@@ -794,7 +948,7 @@
       cursor: pointer;
       font-size: 14px;
       @include flex-center;
-      z-index: 1;
+      z-index: 10;               // z-index alto para no quedar debajo de la imagen
       transition: background $transition-base;
 
       &:hover { background: $green-primary; }
@@ -806,10 +960,61 @@
       background: $bg-light;
 
       img { @include img-cover; }
+
+      // Ícono de zoom — visible al pasar el cursor por la imagen
+      cursor: pointer;
+      position: relative;
+
+      // En layout de columna única (tablet/móvil):
+      // la imagen no puede ser cuadrada o tapa todo el modal
+      @include tablet {
+        aspect-ratio: unset;       // Cancelar el aspect-ratio cuadrado
+        height: 280px;             // Altura fija compacta
+        flex-shrink: 0;
+
+        img {
+          object-position: center top;  // Muestra la parte superior de la foto (más representativa)
+        }
+      }
+
+      @include mobile {
+        height: 220px;             // Aún más compacta en teléfonos
+      }
+    }
+
+    &-image-zoom {
+      position: absolute;
+      inset: 0;
+      @include flex-center;
+      background: rgba(0, 0, 0, 0);
+      transition: background $transition-base;
+      z-index: 2;
+
+      svg {
+        opacity: 0;
+        color: $text-light;
+        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+        transform: scale(0.8);
+        transition: opacity $transition-base, transform $transition-base;
+      }
+
+      // Al hover sobre la imagen, aparece el ícono
+      .detail__modal-image:hover & {
+        background: rgba(0, 0, 0, 0.28);
+
+        svg {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
     }
 
     &-body {
       padding: $sp-md $sp-lg;
+      overflow-y: auto;            // Body desplazable independientemente
+
+      @include tablet { padding: $sp-md 20px; }         // Menos padding lateral en tablet
+      @include mobile { padding: $sp-sm 16px $sp-md; }  // Más compacto en mobile
     }
 
     &-category {
@@ -824,11 +1029,13 @@
       color: $text-dark;
       margin-bottom: $sp-sm;
       line-height: $lh-tight;
+
+      @include mobile { font-size: 22px; }  // Ligeramente más pequeño en mobile
     }
 
     &-meta {
       display: flex;
-      gap: $sp-sm;
+      gap: 8px;
       flex-wrap: wrap;
       margin-bottom: $sp-md;
 
@@ -839,6 +1046,12 @@
         padding: 4px 12px;
         font-weight: $fw-medium;
       }
+
+      @include mobile {
+        gap: 6px;
+
+        span { font-size: 11px; padding: 4px 10px; }  // Tags más pequeños
+      }
     }
 
     &-description {
@@ -846,6 +1059,8 @@
       color: $text-muted;
       line-height: $lh-body;
       margin-bottom: $sp-md;
+
+      @include mobile { font-size: 14px; }  // Ligeramente más pequeño
     }
 
     &-tags {
@@ -862,6 +1077,87 @@
       color: var(--specialty-accent, $green-primary);
       border: 1px solid currentColor;
       padding: 4px 12px;
+    }
+  }
+
+  // ============================================================
+  // LIGHTBOX — Imagen a pantalla completa
+  // ============================================================
+  &__lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: $z-modal + 100;       // Por encima del modal
+    background: rgba(0, 0, 0, 0.92);
+    @include flex-center;
+    flex-direction: column;
+    gap: $sp-sm;
+    animation: fadeIn 0.25s ease;
+    outline: none;                 // Quitar outline del tabindex
+    padding: $sp-md;
+
+    @include mobile { padding: 12px; }
+
+    &-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: $text-light;
+      cursor: pointer;
+      @include flex-center;
+      transition: background $transition-base, transform $transition-base;
+      z-index: 1;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: rotate(90deg);
+      }
+
+      @include mobile { top: 12px; right: 12px; width: 38px; height: 38px; }
+    }
+
+    &-frame {
+      max-width: 94vw;
+      max-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);  // Spring effect
+
+      @include mobile {
+        max-width: 100vw;
+        max-height: 84dvh;
+      }
+    }
+
+    &-img {
+      max-width: 100%;
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;         // Imagen COMPLETA sin recorte
+      display: block;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+
+      @include mobile { max-height: 84dvh; }
+    }
+
+    &-hint {
+      font-family: $font-body;
+      font-size: $fs-label;
+      font-weight: $fw-medium;
+      letter-spacing: $ls-label;
+      color: rgba(255, 255, 255, 0.35);
+      text-transform: uppercase;
+      user-select: none;
+      pointer-events: none;
+      animation: fadeIn 0.6s ease 0.4s both;  // Aparece un poco después
+
+      @include mobile { font-size: 9px; }
     }
   }
 }

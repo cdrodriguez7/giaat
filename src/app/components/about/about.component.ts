@@ -66,6 +66,13 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   // ── Equipo real desde ARCHIVOS/TEAM ──────────────────────
   team: TeamMember[] = [
     {
+      name: 'Linder Betancourt',
+      role: 'Gerente - Arquitecto',
+      tag: 'Dirección · Proyectos',
+      image: 'assets/images/team/linder.png',
+      accentColor: '#E8A020',
+    },
+    {
       name: 'Juan Pablo',
       role: 'Geólogo de Minas',
       tag: 'Geotécnia · Minería',
@@ -159,7 +166,7 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   startAuto(): void {
     this.autoTimer = setInterval(() => {
       if (!this.isPaused()) this.next();
-    }, 3800);
+    }, 6000);
   }
 
   stopAuto(): void {

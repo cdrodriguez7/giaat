@@ -210,7 +210,8 @@
     padding: 8px 20px;
     font-size: 10px;
 
-    @include tablet { display: none; }
+    @include sm { padding: 7px 14px; font-size: 9px; }  // Compacto en 600px
+    @include mobile { display: none; }                   // Solo oculto en ≤480px
   }
 
   // ── Hamburger ────────────────────────────────────────────
