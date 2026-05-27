@@ -403,17 +403,77 @@
     }
   }
 
-  &__gallery-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+  &__projects-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+
+    &:hover .detail__carousel-btn {
+      opacity: 1;
+    }
+  }
+
+  &__projects-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding: 10px 48px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Firefox
+
+    &::-webkit-scrollbar {
+      display: none; // Chrome, Safari, Opera
+    }
+  }
+
+  &__carousel-btn {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    width: 48px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    border: none;
+    font-size: 2.2rem;
+    line-height: 1;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background $transition-base, opacity $transition-base, transform 0.2s ease;
+    opacity: 0;
+    user-select: none;
 
     @include tablet {
-      grid-template-columns: repeat(2, 1fr);
+      opacity: 1; // Always show on touch screens
+      width: 40px;
+      font-size: 1.8rem;
     }
 
-    @include mobile {
-      grid-template-columns: 1fr;
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scaleY(1.03);
+      color: var(--specialty-accent, $green-primary);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &--left {
+      left: 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    &--right {
+      right: 0;
+      border-radius: 8px 0 0 8px;
     }
   }
 
@@ -421,12 +481,29 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    aspect-ratio: 4/3;
+    flex: 0 0 380px;
+    aspect-ratio: 16/9;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: transform $transition-base, box-shadow $transition-base;
+
+    @include tablet {
+      flex: 0 0 300px;
+    }
+
+    @include mobile {
+      flex: 0 0 260px;
+    }
 
     img {
       @include img-cover;
       transition: transform $transition-slow;
       background: $bg-dark-2;     // Placeholder mientras carga
+    }
+
+    &:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
     }
 
     &:hover img {

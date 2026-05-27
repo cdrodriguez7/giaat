@@ -175,23 +175,41 @@
 
       </div>
 
-      <!-- Gallery strip full-bleed (como Diaco) -->
+      <!-- Gallery horizontal carousel Netflix-style -->
       @if (projects().length > 0) {
-        <div class="detail__gallery-strip">
-          @for (project of projects(); track project.id) {
-            <div
-              class="detail__gallery-item reveal-fade"
-              (click)="openProject(project)"
-            >
-              <img [src]="project.image" [alt]="project.title" loading="lazy" />
-              <div class="detail__gallery-overlay">
-                <span class="detail__gallery-label">{{ project.title }}</span>
-                <span class="detail__gallery-meta">{{ project.client }} · {{ project.year }}</span>
-                <div class="detail__gallery-expand" [style.border-color]="sp.accentColor">⤢</div>
+        <div class="detail__projects-carousel-container">
+          <button
+            class="detail__carousel-btn detail__carousel-btn--left"
+            (click)="projectRow.scrollBy({ left: -450, behavior: 'smooth' })"
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+          
+          <div class="detail__projects-row" #projectRow>
+            @for (project of projects(); track project.id) {
+              <div
+                class="detail__gallery-item reveal-fade"
+                (click)="openProject(project)"
+              >
+                <img [src]="project.image" [alt]="project.title" loading="lazy" />
+                <div class="detail__gallery-overlay">
+                  <span class="detail__gallery-label">{{ project.title }}</span>
+                  <span class="detail__gallery-meta">{{ project.client }} · {{ project.year }}</span>
+                  <div class="detail__gallery-expand" [style.border-color]="sp.accentColor">⤢</div>
+                </div>
+                <div class="detail__gallery-accent" [style.background]="sp.accentColor"></div>
               </div>
-              <div class="detail__gallery-accent" [style.background]="sp.accentColor"></div>
-            </div>
-          }
+            }
+          </div>
+
+          <button
+            class="detail__carousel-btn detail__carousel-btn--right"
+            (click)="projectRow.scrollBy({ left: 450, behavior: 'smooth' })"
+            aria-label="Siguiente"
+          >
+            ›
+          </button>
         </div>
       } @else {
         <div class="container">
